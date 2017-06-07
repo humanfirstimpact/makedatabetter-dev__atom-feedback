@@ -1,7 +1,19 @@
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
 
 <!--
 `atom-feedback`
+
+### Styling
+
+The following custom properties are available for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--atom-feedback-icon-color` | Default color of feedback icon | `blue`
+`--atom-feedback-hover-icon-color` | Color of feedback icon when hovered | `red`
+`--atom-feedback-icon` | Mixin applied to the feedback icon | `{}`
 
 
 @demo demo/index.html 
@@ -10,11 +22,25 @@
 <dom-module id="atom-feedback">
   <template>
     <style>
-      :host {
+       :host {
         display: block;
       }
+
+       :host a iron-icon {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        color: var(--atom-feedback-icon-color, blue);
+        @apply(--atom-feedback-icon);
+      }
+
+       :host a:hover iron-icon {
+        color: var(--atom-feedback-hover-icon-color, red);
+      }
     </style>
-    <h2>Hello [[prop1]]</h2>
+    <a href="{{target}}" title="Send Feedback" target="_blank">
+      <iron-icon icon="icons:feedback"></iron-icon>
+    </a>
   </template>
 
   <script>
@@ -23,10 +49,10 @@
       is: 'atom-feedback',
 
       properties: {
-        prop1: {
+        target: {
           type: String,
-          value: 'atom-feedback',
-        },
+          value: '#'
+        }
       },
 
     });
